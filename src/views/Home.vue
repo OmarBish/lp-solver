@@ -4,19 +4,15 @@
       <!-- Login v1 -->
       <b-card class="mb-0">
         <b-link class="brand-logo">
-          <vuexy-logo />
-
           <h2 class="brand-text text-primary ml-1">
-            Vuexy
+            Linear Programming solver
           </h2>
         </b-link>
 
         <b-card-title class="mb-1 text-center">
-          Welcome to Linear Programming solver! 👋
+          Solving LP problems is as easy as going throw the form in this page 💪
         </b-card-title>
-        <b-card-text class="mb-2 text-center">
-          Solving LP problems is as easy as going throw the for in this page 💪
-        </b-card-text>
+        <!-- <b-card-text class="mb-2 text-center"> </b-card-text> -->
 
         <form-wizard
           color="#7367F0"
@@ -48,109 +44,20 @@
           </tab-content>
 
           <!-- personal details tab -->
-          <tab-content
-            title="Personal Info"
-            :before-change="validationFormInfo"
-          >
+          <tab-content title="Factory info" :before-change="validationFormInfo">
             <validation-observer ref="infoRules" tag="form">
               <b-row>
                 <b-col cols="12" class="mb-2">
                   <h5 class="mb-0">
-                    Personal Info
+                    Factory Info
                   </h5>
-                  <small class="text-muted">Enter Your Personal Info.</small>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="First Name" label-for="first-name">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="First Name"
-                      rules="required"
-                    >
-                      <b-form-input
-                        id="first-name"
-                        v-model="first_name"
-                        placeholder="John"
-                        :state="errors.length > 0 ? false : null"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="Last Name" label-for="last-name">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="Last Name"
-                      rules="required"
-                    >
-                      <b-form-input
-                        id="last-name"
-                        v-model="last_name"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="Doe"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <validation-provider
-                    #default="{ errors }"
-                    name="Country"
-                    rules="required"
+                  <small class="text-muted"
+                    >Enter production hours the factory can provide for each
+                    product.</small
                   >
-                    <b-form-group
-                      label="Country"
-                      label-for="country"
-                      :state="errors.length > 0 ? false : null"
-                    >
-                      <v-select
-                        id="country"
-                        v-model="selectedContry"
-                        :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                        :options="countryName"
-                        :selectable="
-                          (option) => !option.value.includes('select_value')
-                        "
-                        label="text"
-                      />
-                      <b-form-invalid-feedback
-                        :state="errors.length > 0 ? false : null"
-                      >
-                        {{ errors[0] }}
-                      </b-form-invalid-feedback>
-                    </b-form-group>
-                  </validation-provider>
                 </b-col>
-                <b-col md="6">
-                  <validation-provider
-                    #default="{ errors }"
-                    name="Language"
-                    rules="required"
-                  >
-                    <b-form-group
-                      label="Language"
-                      label-for="language"
-                      :state="errors.length > 0 ? false : null"
-                    >
-                      <v-select
-                        id="language"
-                        v-model="selectedLanguage"
-                        :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                        :options="languageName"
-                        :selectable="
-                          (option) => !option.value.includes('nothing_selected')
-                        "
-                        label="text"
-                      />
-                      <b-form-invalid-feedback
-                        :state="errors.length > 0 ? false : null"
-                      >
-                        {{ errors[0] }}
-                      </b-form-invalid-feedback>
-                    </b-form-group>
-                  </validation-provider>
+                <b-col md="12">
+                  <factory-form />
                 </b-col>
               </b-row>
             </validation-observer>
@@ -332,7 +239,6 @@
 
 <script>
 import { FormWizard, TabContent } from "vue-form-wizard";
-import vSelect from "vue-select";
 import { ValidationProvider, ValidationObserver } from "vee-validate";
 import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
@@ -342,15 +248,14 @@ import {
   BLink,
   BFormGroup,
   BCardTitle,
-  BCardText,
+  // BCardText,
   BFormInput,
-  BFormInvalidFeedback,
   BCard,
 } from "bootstrap-vue";
-import VuexyLogo from "@core/layouts/components/Logo.vue";
 
 import { required, email } from "@validations";
 import FormRepeaterProducts from "./Home/FormRepeaterProducts.vue";
+import FactoryForm from "./Home/FactoryForm.vue";
 
 export default {
   components: {
@@ -359,20 +264,20 @@ export default {
     BCard,
     BCardTitle,
     BLink,
-    VuexyLogo,
+    // BCardText,
 
-    BCardText,
-    FormRepeaterProducts,
     FormWizard,
     TabContent,
     BRow,
     BCol,
     BFormGroup,
     BFormInput,
-    vSelect,
-    BFormInvalidFeedback,
     // eslint-disable-next-line vue/no-unused-components
     ToastificationContent,
+
+    // tabs
+    FormRepeaterProducts,
+    FactoryForm,
   },
   data() {
     return {
