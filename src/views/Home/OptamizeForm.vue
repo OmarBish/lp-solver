@@ -10,13 +10,25 @@
         <!-- Row Loop -->
         <b-row ref="row">
           <!-- Item Name -->
-          <b-col md="4">
+          <b-col md="4" v-if="!replacementMode">
             <b-form-group label="Optamize For" label-for="optamize">
               <v-select
                 id="optamize"
                 v-model="optamize"
                 :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
                 :options="optamizeOptions"
+                :selectable="(option) => !option.value.includes('select_value')"
+                label="text"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4" v-if="replacementMode">
+            <b-form-group label="Optamizeing Algorithm" label-for="optamize">
+              <v-select
+                id="optamize"
+                v-model="algorithm"
+                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                :options="algorithmOptions"
                 :selectable="(option) => !option.value.includes('select_value')"
                 label="text"
               />
@@ -54,6 +66,11 @@ export default {
   mixins: [heightTransition],
   data() {
     return {
+      algorithm: null,
+      algorithmOptions: [
+        { value: "select_value", text: "Select Value" },
+        { value: "Hungarian-algorithm", text: "Hungarian algorithm" },
+      ],
       result: "",
     };
   },

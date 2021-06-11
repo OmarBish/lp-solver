@@ -13,20 +13,29 @@ export default {
         ptm: 10,
       },
     ],
+    storages: [{ capacity: null, rent_per_cm: null }],
   },
   getters: {
     prodcuts: (state) => state.products,
+    storages: (state) => state.storages,
   },
   mutations: {
     SET_ITEM(state, payload) {
       state.products[payload.index] = payload.product;
       state.products = [...state.products];
     },
+    SET_STORAGE_ITEM(state, payload) {
+      state.storages[payload.index] = payload.storage;
+      state.storages = [...state.storages];
+    },
     ADD_NEW_PRODUCT(state, payload) {
       state.products.push(payload);
     },
-    REMOVE_PRODUCT(state, index) {
-      state.products.splice(index, 1);
+    ADD_NEW_STORAGE(state, payload) {
+      state.storages.push(payload);
+    },
+    REMOVE_STORAGE(state, index) {
+      state.storages.splice(index, 1);
     },
     SET_MAX_PTM(state, payload) {
       state.max_ptm = payload;
