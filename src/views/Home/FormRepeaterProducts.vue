@@ -1,5 +1,5 @@
 <template>
-  <b-card-code title="Repeating Forms">
+  <b-card title="Repeating Forms">
     <div>
       <b-form
         ref="form"
@@ -15,7 +15,7 @@
           ref="row"
         >
           <!-- Item Name -->
-          <b-col md="4">
+          <b-col md="2">
             <b-form-group label="Product Name" label-for="item-name">
               <b-form-input
                 id="item-name"
@@ -27,21 +27,72 @@
             </b-form-group>
           </b-col>
 
-          <!-- profit -->
+          <!-- Price -->
           <b-col md="2">
-            <b-form-group label="Profit" label-for="profit">
+            <b-form-group label="Price" label-for="price">
               <b-form-input
-                id="profit"
+                id="price"
                 type="number"
                 placeholder="32"
-                :value="item.profit"
-                @input="setProfit($event, item, index)"
+                :value="item.price"
+                @input="setPrice($event, item, index)"
+              />
+            </b-form-group>
+          </b-col>
+          <!-- Cost -->
+          <b-col md="2">
+            <b-form-group label="Cost" label-for="cost">
+              <b-form-input
+                id="cost"
+                type="number"
+                placeholder="32"
+                :value="item.cost"
+                @input="setCost($event, item, index)"
               />
             </b-form-group>
           </b-col>
 
-          <!-- production time -->
+          <!-- Wage -->
           <b-col md="2">
+            <b-form-group label="Wage" label-for="wage">
+              <b-form-input
+                id="wage"
+                type="number"
+                placeholder="32"
+                :value="item.wage"
+                @input="setWage($event, item, index)"
+              />
+            </b-form-group>
+          </b-col>
+
+          <!-- Rent -->
+          <b-col md="2" v-if="replacementMode">
+            <b-form-group label="Rent" label-for="rent">
+              <b-form-input
+                id="rent"
+                type="number"
+                placeholder="32"
+                :value="item.rent"
+                @input="setRent($event, item, index)"
+              />
+            </b-form-group>
+          </b-col>
+
+          <!-- Quantity -->
+          <b-col md="2" v-if="replacementMode">
+            <b-form-group label="Quantity" label-for="quantity">
+              <b-form-input
+                id="quantity"
+                type="number"
+                placeholder="32"
+                :value="item.quantity"
+                @input="setQuantity($event, item, index)"
+              />
+            </b-form-group>
+          </b-col>
+
+          <!-- Production Time for Worker -->
+          <b-col md="2" v-if="!replacementMode">
             <b-form-group label="Production Time for Worker" label-for="ptw">
               <b-form-input
                 id="ptw"
@@ -52,7 +103,9 @@
               />
             </b-form-group>
           </b-col>
-          <b-col md="2">
+
+          <!-- Production Time for Machine -->
+          <b-col md="2" v-if="!replacementMode">
             <b-form-group label="Production Time for Machine" label-for="ptm">
               <b-form-input
                 id="ptm"
@@ -76,6 +129,8 @@
               <span>Delete</span>
             </b-button>
           </b-col>
+
+          <!-- Seperator -->
           <b-col cols="12">
             <hr />
           </b-col>
@@ -90,12 +145,12 @@
       <feather-icon icon="PlusIcon" class="mr-25" />
       <span>Add New</span>
     </b-button>
-  </b-card-code>
+  </b-card>
 </template>
 
 <script>
-import BCardCode from "@core/components/b-card-code";
 import {
+  BCard,
   BForm,
   BFormGroup,
   BFormInput,
@@ -108,7 +163,7 @@ import Ripple from "vue-ripple-directive";
 
 export default {
   components: {
-    BCardCode,
+    BCard,
     BForm,
     BRow,
     BCol,
@@ -127,7 +182,10 @@ export default {
   },
   computed: {
     items() {
-      return this.$store.state.lp.products;
+      return this.$store.getters["lp/prodcuts"];
+    },
+    replacementMode() {
+      return this.$store.state.lp.replacementMode;
     },
   },
   mounted() {
@@ -148,9 +206,41 @@ export default {
         product: tempItem,
       });
     },
-    setProfit(value, item, index) {
+    setPrice(value, item, index) {
       const tempItem = item;
-      tempItem.profit = value;
+      tempItem.price = value;
+      this.$store.commit("lp/SET_ITEM", {
+        index,
+        product: tempItem,
+      });
+    },
+    setCost(value, item, index) {
+      const tempItem = item;
+      tempItem.cost = value;
+      this.$store.commit("lp/SET_ITEM", {
+        index,
+        product: tempItem,
+      });
+    },
+    setWage(value, item, index) {
+      const tempItem = item;
+      tempItem.wage = value;
+      this.$store.commit("lp/SET_ITEM", {
+        index,
+        product: tempItem,
+      });
+    },
+    setRent(value, item, index) {
+      const tempItem = item;
+      tempItem.rent = value;
+      this.$store.commit("lp/SET_ITEM", {
+        index,
+        product: tempItem,
+      });
+    },
+    setQuantity(value, item, index) {
+      const tempItem = item;
+      tempItem.quantity = value;
       this.$store.commit("lp/SET_ITEM", {
         index,
         product: tempItem,

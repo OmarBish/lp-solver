@@ -1,40 +1,55 @@
-<template>
+e<template>
   <div class="auth-wrapper auth-v1 px-2">
     <div class="auth-inner py-2 ob-mw-80">
       <!-- Login v1 -->
       <b-card class="mb-0">
-        <b-link class="brand-logo">
+        <b-link class="brand-logo ob-logo-warper">
+          <img src="@/assets/images/logo/LOGO.jpg" alt="" class="ob-logo" />
           <h2 class="brand-text text-primary ml-1">
-            Linear Programming solver
+            Bussniss advisor
           </h2>
         </b-link>
 
         <b-card-title class="mb-1 text-center">
           Solving LP problems is as easy as going throw the form in this page 💪
         </b-card-title>
-        <!-- <b-card-text class="mb-2 text-center"> </b-card-text> -->
+        <!-- <b-card-text class="mb-2 text-center">
+        </b-card-text> -->
 
         <form-wizard
           color="#7367F0"
           :title="null"
           :subtitle="null"
           shape="square"
-          finish-button-text="Submit"
+          finish-button-text="Find Result"
           back-button-text="Previous"
           class="mb-3"
           @on-complete="formSubmitted"
         >
           <!-- accoint details tab -->
-          <tab-content title="Products Info" :before-change="validationForm">
+          <tab-content title="Products Info">
             <validation-observer ref="accountRules" tag="form">
               <b-row>
-                <b-col cols="12" class="mb-2">
+                <b-col cols="10" class="mb-2">
                   <h5 class="mb-0">
                     Products Info
                   </h5>
                   <small class="text-muted">
                     Enter the products that is avaialable in the system
                   </small>
+                </b-col>
+                <b-col cols="2" class="mb-2">
+                  <div class="d-flex f-justify-end">
+                    <div>
+                      <b-form-checkbox
+                        v-model="replacementMode"
+                        :value="true"
+                        class="custom-control-primary"
+                      >
+                        Replacement mode
+                      </b-form-checkbox>
+                    </div>
+                  </div>
                 </b-col>
                 <b-col md="12">
                   <form-repeater-products />
@@ -44,7 +59,7 @@
           </tab-content>
 
           <!-- personal details tab -->
-          <tab-content title="Factory info" :before-change="validationFormInfo">
+          <tab-content title="Factory info">
             <validation-observer ref="infoRules" tag="form">
               <b-row>
                 <b-col cols="12" class="mb-2">
@@ -64,169 +79,42 @@
           </tab-content>
 
           <!-- address  -->
-          <tab-content title="Address" :before-change="validationFormAddress">
+          <tab-content title="Optmization">
             <validation-observer ref="addressRules" tag="form">
               <b-row>
                 <b-col cols="12" class="mb-2">
                   <h5 class="mb-0">
-                    Address
+                    Optmization
                   </h5>
-                  <small class="text-muted">Enter Your Address.</small>
+                  <small class="text-muted"
+                    >Select the optmization target that you want to get the
+                    result for.</small
+                  >
                 </b-col>
-                <b-col md="6">
-                  <b-form-group label="Address" label-for="address">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="Address"
-                      rules="required"
+                <b-col md="12"> <optamize-form /> </b-col>
+                <b-col md="3" v-if="results"></b-col>
+                <b-col md="6" v-if="results">
+                  <h3 class="text-center">
+                    {{
+                      ` the ${$store.state.lp.optamize.value} ${
+                        this.replacementMode ? "cost" : "profit"
+                      } is ${results.result} `
+                    }}
+                  </h3>
+                  <b-list-group>
+                    <b-list-group-item
+                      class="d-flex justify-content-between align-items-center"
+                      v-for="item in resultsItems"
+                      :key="item.name"
                     >
-                      <b-form-input
-                        id="address"
-                        v-model="address"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="98 Borough bridge Road, Birmingham"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
+                      <span>{{ item.name }} </span>
+                      <b-badge variant="primary" pill class="badge-round">
+                        {{ item.quantity }}
+                      </b-badge>
+                    </b-list-group-item>
+                  </b-list-group>
                 </b-col>
-                <b-col md="6">
-                  <b-form-group label="Landmark" label-for="landmark">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="Landmark"
-                      rules="required"
-                    >
-                      <b-form-input
-                        id="landmark"
-                        v-model="landMark"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="Borough bridge"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="Pincode" label-for="pincode">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="Pincode"
-                      rules="required"
-                    >
-                      <b-form-input
-                        id="pincode"
-                        v-model="pincode"
-                        :state="errors.length > 0 ? false : null"
-                        type="number"
-                        placeholder="658921"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="City" label-for="city">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="City"
-                      rules="required"
-                    >
-                      <b-form-input
-                        id="city"
-                        v-model="city"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="Birmingham"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-              </b-row>
-            </validation-observer>
-          </tab-content>
-
-          <!-- social link -->
-          <tab-content
-            title="Social Links"
-            :before-change="validationFormSocial"
-          >
-            <validation-observer ref="socialRules" tag="form">
-              <b-row>
-                <b-col cols="12" class="mb-2">
-                  <h5 class="mb-0">
-                    Social Links
-                  </h5>
-                  <small class="text-muted">Enter Your Social Links</small>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="Twitter" label-for="twitter">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="Twitter"
-                      rules="required|url"
-                    >
-                      <b-form-input
-                        id="twitter"
-                        v-model="twitterUrl"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="https://twitter.com/abc"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="Facebook" label-for="facebook">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="Facebook"
-                      rules="required|url"
-                    >
-                      <b-form-input
-                        id="facebook"
-                        v-model="facebookUrl"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="https://facebook.com/abc"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="Google+" label-for="google-plus">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="Google+"
-                      rules="required|url"
-                    >
-                      <b-form-input
-                        id="google-plus"
-                        v-model="googleUrl"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="https://plus.google.com/abc"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
-                <b-col md="6">
-                  <b-form-group label="LinkedIn" label-for="linked-in">
-                    <validation-provider
-                      #default="{ errors }"
-                      name="LinkedIn"
-                      rules="required|url"
-                    >
-                      <b-form-input
-                        id="linked-in"
-                        v-model="linkedinUrl"
-                        :state="errors.length > 0 ? false : null"
-                        placeholder="https://linkedin.com/abc"
-                      />
-                      <small class="text-danger">{{ errors[0] }}</small>
-                    </validation-provider>
-                  </b-form-group>
-                </b-col>
+                <b-col md="3" v-if="results"></b-col>
               </b-row>
             </validation-observer>
           </tab-content>
@@ -239,27 +127,32 @@
 
 <script>
 import { FormWizard, TabContent } from "vue-form-wizard";
-import { ValidationProvider, ValidationObserver } from "vee-validate";
+import { ValidationObserver } from "vee-validate";
 import ToastificationContent from "@core/components/toastification/ToastificationContent.vue";
+
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
 import {
   BRow,
   BCol,
   BLink,
-  BFormGroup,
+  // BFormGroup,
   BCardTitle,
   // BCardText,
-  BFormInput,
+  // BFormInput,
+  BBadge,
   BCard,
+  BFormCheckbox,
+  BListGroup,
+  BListGroupItem,
 } from "bootstrap-vue";
+import solver from "javascript-lp-solver";
 
-import { required, email } from "@validations";
 import FormRepeaterProducts from "./Home/FormRepeaterProducts.vue";
 import FactoryForm from "./Home/FactoryForm.vue";
+import OptamizeForm from "./Home/OptamizeForm.vue";
 
 export default {
   components: {
-    ValidationProvider,
     ValidationObserver,
     BCard,
     BCardTitle,
@@ -270,104 +163,163 @@ export default {
     TabContent,
     BRow,
     BCol,
-    BFormGroup,
-    BFormInput,
+    BBadge,
+    // BFormGroup,
+    // BFormInput,
+    BFormCheckbox,
+
     // eslint-disable-next-line vue/no-unused-components
     ToastificationContent,
-
     // tabs
     FormRepeaterProducts,
     FactoryForm,
+    OptamizeForm,
+    BListGroup,
+    BListGroupItem,
   },
   data() {
     return {
-      selectedContry: "",
-      selectedLanguage: "",
-      name: "",
-      emailValue: "",
-      PasswordValue: "",
-      passwordCon: "",
-      first_name: "",
-      last_name: "",
-      address: "",
-      landMark: "",
-      pincode: "",
-      twitterUrl: "",
-      facebookUrl: "",
-      googleUrl: "",
-      linkedinUrl: "",
-      city: "",
-      required,
-      email,
-      countryName: [
-        { value: "select_value", text: "Select Value" },
-        { value: "Russia", text: "Russia" },
-        { value: "Canada", text: "Canada" },
-        { value: "China", text: "China" },
-        { value: "United States", text: "United States" },
-        { value: "Brazil", text: "Brazil" },
-        { value: "Australia", text: "Australia" },
-        { value: "India", text: "India" },
-      ],
-      languageName: [
-        { value: "nothing_selected", text: "Nothing Selected" },
-        { value: "English", text: "English" },
-        { value: "Chinese", text: "Mandarin Chinese" },
-        { value: "Hindi", text: "Hindi" },
-        { value: "Spanish", text: "Spanish" },
-        { value: "Arabic", text: "Arabic" },
-        { value: "Malay", text: "Malay" },
-        { value: "Russian", text: "Russian" },
-      ],
+      results: "",
+      resultsItems: [],
+      BListGroup: "",
     };
   },
-  methods: {
-    formSubmitted() {
-      this.$toast({
-        component: ToastificationContent,
-        props: {
-          title: "Form Submitted",
-          icon: "EditIcon",
-          variant: "success",
+  computed: {
+    replacementMode: {
+      get() {
+        return this.$store.state.lp.replacementMode;
+      },
+      set(value) {
+        this.$store.commit("lp/SET_REPLACEMENT_MODE", value);
+      },
+    },
+    max_ptm() {
+      return Number(this.$store.state.lp.max_ptm);
+    },
+    max_ptw() {
+      return Number(this.$store.state.lp.max_ptw);
+    },
+    max_capacity() {
+      return Number(this.$store.state.lp.max_capacity);
+    },
+    items() {
+      return this.$store.getters["lp/prodcuts"];
+    },
+  },
+  mounted() {
+    // this.initTrHeight();
+    var model = {
+      optimize: "capacity",
+      opType: "max",
+      constraints: {
+        plane: { max: 44 },
+        person: { max: 512 },
+        cost: { max: 300000 },
+      },
+      variables: {
+        brit: {
+          capacity: 20000,
+          plane: 1,
+          person: 8,
+          cost: 5000,
         },
-      });
+        yank: {
+          capacity: 30000,
+          plane: 1,
+          person: 16,
+          cost: 9000,
+        },
+      },
+    };
+    model = {
+      optimize: "profit",
+      opType: "max",
+      constraints: {
+        ptw: { max: 2000 },
+        ptm: { max: 2000 },
+      },
+      variables: {
+        r1: { price: 50, cost: 10, wage: 70, ptw: 16, ptm: 10 },
+        r2: { price: 50, cost: 20, wage: 5, ptw: 8, ptm: 6 },
+      },
+      ints: { r1: 1, r2: 1 },
+    };
+
+    let results = solver.Solve(model);
+    console.log(results);
+  },
+  methods: {
+    buildResultProductText() {
+      this.resultsItems = [];
+      for (let index = 0; index < this.items.length; index += 1) {
+        const product = this.items[index];
+        if (product.name in this.results) {
+          this.resultsItems.push({
+            name: product.name,
+            quantity: this.results[product.name],
+          });
+        }
+      }
+    },
+    formSubmitted() {
+      const optimize = this.replacementMode ? "cost" : "profit";
+
+      const opType = this.$store.state.lp.optamize.value;
+      let constraints = {};
+      if (this.replacementMode) {
+        constraints = {
+          quantity: { max: Number(this.max_capacity) },
+        };
+      } else {
+        constraints = {
+          ptw: { max: Number(this.max_ptw) },
+          ptm: { max: Number(this.max_ptm) },
+          cost: { max: Number(10000) },
+        };
+      }
+      const variables = {};
+      const ints = {};
+
+      for (let index = 0; index < this.items.length; index += 1) {
+        const product = this.items[index];
+        const profit =
+          Number(product.price) - (Number(product.cost) + Number(product.wage));
+        let cost = Number(product.rent) / Number(product.quantity);
+        cost += profit;
+        if (this.replacementMode) {
+          variables[product.name] = {
+            cost,
+            rent: Number(product.rent),
+            quantity: Number(product.quantity),
+          };
+        } else {
+          variables[product.name] = {
+            profit,
+            price: Number(product.price),
+            cost: Number(product.cost),
+            wage: Number(product.wage),
+            ptw: Number(product.ptw),
+            ptm: Number(product.ptm),
+          };
+        }
+        ints[product.name] = 1;
+      }
+      const model = {
+        optimize,
+        opType,
+        constraints,
+        variables,
+        ints,
+      };
+      console.log(JSON.stringify(model));
+      const results = solver.Solve(model);
+      this.results = results;
+      console.log(results);
+      this.buildResultProductText();
     },
     validationForm() {
       return new Promise((resolve, reject) => {
         this.$refs.accountRules.validate().then((success) => {
-          if (success) {
-            resolve(true);
-          } else {
-            reject();
-          }
-        });
-      });
-    },
-    validationFormInfo() {
-      return new Promise((resolve, reject) => {
-        this.$refs.infoRules.validate().then((success) => {
-          if (success) {
-            resolve(true);
-          } else {
-            reject();
-          }
-        });
-      });
-    },
-    validationFormAddress() {
-      return new Promise((resolve, reject) => {
-        this.$refs.addressRules.validate().then((success) => {
-          if (success) {
-            resolve(true);
-          } else {
-            reject();
-          }
-        });
-      });
-    },
-    validationFormSocial() {
-      return new Promise((resolve, reject) => {
-        this.$refs.socialRules.validate().then((success) => {
           if (success) {
             resolve(true);
           } else {
@@ -382,9 +334,24 @@ export default {
 
 <style lang="scss">
 @import "@core/scss/vue/pages/page-auth.scss";
+@import "@core/scss/vue/libs/vue-select.scss";
+@import "@core/scss/vue/libs/vue-wizard.scss";
 
 .ob-mw-80 {
   width: 80%;
   max-width: 1600px !important;
+}
+
+.ob-logo {
+  max-width: 80px;
+}
+
+.ob-logo-warper {
+  flex-direction: column;
+  align-items: center;
+}
+
+.f-justify-end {
+  justify-content: flex-end;
 }
 </style>

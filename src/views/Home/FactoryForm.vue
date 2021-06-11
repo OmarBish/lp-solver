@@ -1,31 +1,60 @@
 <template>
-  <b-card-code>
+  <b-card>
     <div>
       <b-form
         ref="form"
         :style="{ height: trHeight }"
         class="form"
-        @submit.prevent="repeateAgain"
+        @submit.prevent=""
       >
         <!-- Row Loop -->
-        <b-row
-          v-for="(item, index) in items"
-          :id="item.id"
-          :key="item.id"
-          ref="row"
-        >
+        <b-row ref="row" v-if="!replacementMode">
           <!-- Item Name -->
           <b-col md="4">
             <b-form-group
-              :label="`Provide '${item.name}' production hours`"
-              label-for="item-fph"
+              :label="`number of workers hours the factory can provide`"
+              label-for="item-max-ptw"
             >
               <b-form-input
-                id="item-fph"
+                id="item-max-ptw"
                 type="number"
                 placeholder="32"
-                :value="item.fph"
-                @input="setFph($event, item, index)"
+                :value="max_ptw"
+                @input="setMaxPtw($event)"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col md="4">
+            <b-form-group
+              :label="`number of machine hours the factory can provide`"
+              label-for="item-max-ptm"
+            >
+              <b-form-input
+                id="item-max-ptm"
+                type="number"
+                placeholder="32"
+                :value="max_ptm"
+                @input="setMaxPtm($event)"
+              />
+            </b-form-group>
+          </b-col>
+          <b-col cols="12">
+            <hr class="mb-3" />
+          </b-col>
+        </b-row>
+        <b-row ref="row" v-if="replacementMode">
+          <!-- Item Name -->
+          <b-col md="4">
+            <b-form-group
+              :label="`Maximum Factory Capacity `"
+              label-for="item-max-ptw"
+            >
+              <b-form-input
+                id="item-max-ptw"
+                type="number"
+                placeholder="32"
+                :value="max_capacity"
+                @input="setMaxCapacity($event)"
               />
             </b-form-group>
           </b-col>
@@ -35,19 +64,25 @@
         </b-row>
       </b-form>
     </div>
-  </b-card-code>
+  </b-card>
 </template>
 
 <script>
-import BCardCode from "@core/components/b-card-code";
 // eslint-disable-next-line object-curly-newline
-import { BForm, BFormGroup, BFormInput, BRow, BCol } from "bootstrap-vue";
+import {
+  BForm,
+  BFormGroup,
+  BFormInput,
+  BRow,
+  BCol,
+  BCard,
+} from "bootstrap-vue";
 import { heightTransition } from "@core/mixins/ui/transition";
 import Ripple from "vue-ripple-directive";
 
 export default {
   components: {
-    BCardCode,
+    BCard,
     BForm,
     BRow,
     BCol,
@@ -64,8 +99,17 @@ export default {
     };
   },
   computed: {
-    items() {
-      return this.$store.state.lp.products;
+    max_ptm() {
+      return this.$store.state.lp.max_ptm;
+    },
+    max_ptw() {
+      return this.$store.state.lp.max_ptw;
+    },
+    max_capacity() {
+      return this.$store.state.max_capacity;
+    },
+    replacementMode() {
+      return this.$store.state.lp.replacementMode;
     },
   },
   mounted() {
@@ -78,13 +122,14 @@ export default {
     window.removeEventListener("resize", this.initTrHeight);
   },
   methods: {
-    setFph(value, item, index) {
-      const tempItem = item;
-      tempItem.fph = value;
-      this.$store.commit("lp/SET_ITEM", {
-        index,
-        product: tempItem,
-      });
+    setMaxPtm(value) {
+      this.$store.commit("lp/SET_MAX_PTM", value);
+    },
+    setMaxPtw(value) {
+      this.$store.commit("lp/SET_MAX_PTW", value);
+    },
+    setMaxCapacity(value) {
+      this.$store.commit("lp/SET_MAX_CAPACITY", value);
     },
     initTrHeight() {
       this.trSetHeight(null);
