@@ -8,7 +8,7 @@
 //  Author URL: http://www.themeforest.net/user/pixinvent
 // ================================================================================================
 
-@import '../bootstrap-extended/include'; // Bootstrap includes
+@import "../bootstrap-extended/include"; // Bootstrap includes
 
 $color-box-size: 2.714rem;
 
@@ -28,7 +28,7 @@ $color-box-size: 2.714rem;
       .dataTables_length {
         text-align: left;
       }
-      & > div[class^='col-']:last-child {
+      & > div[class^="col-"]:last-child {
         padding-left: 0;
       }
     }
@@ -91,7 +91,7 @@ $color-box-size: 2.714rem;
 }
 
 // RTL
-html[data-textdirection='rtl'] {
+html[data-textdirection="rtl"] {
   .app-user-list {
     .dataTables_filter {
       input {

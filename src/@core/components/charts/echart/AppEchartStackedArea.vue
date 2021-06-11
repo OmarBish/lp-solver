@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import ECharts from 'vue-echarts'
-import 'echarts/lib/component/tooltip'
-import 'echarts/lib/component/legend'
-import 'echarts/lib/chart/line'
-import theme from './theme.json'
+import ECharts from "vue-echarts";
+import "echarts/lib/component/tooltip";
+import "echarts/lib/component/legend";
+import "echarts/lib/chart/line";
+import theme from "./theme.json";
 
-ECharts.registerTheme('theme-color', theme)
+ECharts.registerTheme("theme-color", theme);
 
 export default {
   components: {
@@ -31,42 +31,42 @@ export default {
     return {
       option: {
         title: {
-          text: 'Stacked area chart',
+          text: "Stacked area chart",
         },
         tooltip: {
-          trigger: 'axis',
+          trigger: "axis",
           axisPointer: {
-            type: 'cross',
+            type: "cross",
             label: {
-              backgroundColor: '#6a7985',
+              backgroundColor: "#6a7985",
             },
           },
         },
         legend: {
-          left: '0',
+          left: "0",
         },
         grid: {
-          width: '95%',
-          left: '40px',
-          right: '4%',
+          width: "95%",
+          left: "40px",
+          right: "4%",
           containLabel: false,
         },
         xAxis: [
           {
-            type: 'category',
+            type: "category",
             boundaryGap: false,
             data: this.optionData.xAxisData,
           },
         ],
         yAxis: [
           {
-            type: 'value',
+            type: "value",
             splitLine: { show: false },
           },
         ],
         series: this.optionData.series,
       },
-    }
+    };
   },
-}
+};
 </script>

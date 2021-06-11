@@ -1,7 +1,7 @@
 // Core variables and mixins
-@import '~@core/scss/base/bootstrap-extended/include';
+@import "~@core/scss/base/bootstrap-extended/include";
 // Overrides user variable
-@import '~@core/scss/base/components/include';
+@import "~@core/scss/base/components/include";
 
 $vt-toast-min-height: unset;
 $vt-toast-max-height: unset;
@@ -21,13 +21,13 @@ $vt-text-color-error: $danger;
 $vt-font-family: inherit;
 
 // Import the regular Vue Toastification stylesheets (or create your own)
-@import 'vue-toastification/src/scss/_variables';
-@import 'vue-toastification/src/scss/_toastContainer';
-@import 'vue-toastification/src/scss/_toast';
-@import 'vue-toastification/src/scss/_closeButton';
-@import 'vue-toastification/src/scss/_progressBar';
-@import 'vue-toastification/src/scss/_icon';
-@import 'vue-toastification/src/scss/animations/fade';
+@import "vue-toastification/src/scss/_variables";
+@import "vue-toastification/src/scss/_toastContainer";
+@import "vue-toastification/src/scss/_toast";
+@import "vue-toastification/src/scss/_closeButton";
+@import "vue-toastification/src/scss/_progressBar";
+@import "vue-toastification/src/scss/_icon";
+@import "vue-toastification/src/scss/animations/fade";
 
 .#{$vt-namespace}__toast {
   padding: 1rem;

@@ -1,41 +1,41 @@
-@import '../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../components/include'; // Components includes
+@import "../../bootstrap-extended/include"; // Bootstrap includes
+@import "../../components/include"; // Components includes
 
 /* Set dropdown font-families */
-.ql-toolbar .ql-font span[data-label='Sailec Light']::before {
-  font-family: 'Sailec Light';
+.ql-toolbar .ql-font span[data-label="Sailec Light"]::before {
+  font-family: "Sailec Light";
 }
-.ql-toolbar .ql-font span[data-label='Sofia Pro']::before {
-  font-family: 'Sofia';
+.ql-toolbar .ql-font span[data-label="Sofia Pro"]::before {
+  font-family: "Sofia";
 }
-.ql-toolbar .ql-font span[data-label='Slabo 27px']::before {
-  font-family: 'Slabo 27px';
+.ql-toolbar .ql-font span[data-label="Slabo 27px"]::before {
+  font-family: "Slabo 27px";
 }
-.ql-toolbar .ql-font span[data-label='Roboto Slab']::before {
-  font-family: 'Roboto Slab';
+.ql-toolbar .ql-font span[data-label="Roboto Slab"]::before {
+  font-family: "Roboto Slab";
 }
-.ql-toolbar .ql-font span[data-label='Inconsolata']::before {
-  font-family: 'Inconsolata';
+.ql-toolbar .ql-font span[data-label="Inconsolata"]::before {
+  font-family: "Inconsolata";
 }
-.ql-toolbar .ql-font span[data-label='Ubuntu Mono']::before {
-  font-family: 'Ubuntu Mono';
+.ql-toolbar .ql-font span[data-label="Ubuntu Mono"]::before {
+  font-family: "Ubuntu Mono";
 }
 
 /* Set content font-families */
 .ql-font-sofia {
-  font-family: 'Sofia';
+  font-family: "Sofia";
 }
 .ql-font-slabo {
-  font-family: 'Slabo 27px';
+  font-family: "Slabo 27px";
 }
 .ql-font-roboto {
-  font-family: 'Roboto Slab';
+  font-family: "Roboto Slab";
 }
 .ql-font-inconsolata {
-  font-family: 'Inconsolata';
+  font-family: "Inconsolata";
 }
 .ql-font-ubuntu {
-  font-family: 'Ubuntu Mono';
+  font-family: "Ubuntu Mono";
 }
 
 // Quill Editor
@@ -202,7 +202,7 @@
 }
 
 // RTL
-[data-textdirection='rtl'] {
+[data-textdirection="rtl"] {
   .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) {
     i,
     svg {

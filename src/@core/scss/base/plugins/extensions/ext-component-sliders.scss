@@ -1,5 +1,5 @@
-@import '../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../components/include'; // Components includes
+@import "../../bootstrap-extended/include"; // Bootstrap includes
+@import "../../components/include"; // Components includes
 
 $slider_width: 6px;
 $handle-size: 1rem;
@@ -135,7 +135,7 @@ _:-ms-lang(x),
 
 // RTL
 // -------------
-[data-textdirection='rtl'] {
+[data-textdirection="rtl"] {
   .noUi-txt-dir-rtl.noUi-horizontal .noUi-origin {
     right: auto;
   }

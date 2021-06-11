@@ -1,7 +1,7 @@
-@import '~@core/scss/base/bootstrap-extended/include';
+@import "~@core/scss/base/bootstrap-extended/include";
 
 /*! rtl:begin:ignore */
-[dir='rtl'] {
+[dir="rtl"] {
   // Disable x Scrolling in Perfect scrollbar
   body .ps__rail-y {
     right: auto !important;

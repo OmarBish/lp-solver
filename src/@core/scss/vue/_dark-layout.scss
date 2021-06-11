@@ -1,6 +1,6 @@
 // Core variables and mixins
-@import '~@core/scss/base/bootstrap-extended/include';
-@import '~@core/scss/base/core/colors/palette-variables.scss';
+@import "~@core/scss/base/bootstrap-extended/include";
+@import "~@core/scss/base/core/colors/palette-variables.scss";
 
 body {
   &.dark-layout {
@@ -32,7 +32,8 @@ body {
     .b-avatar-group {
       .b-avatar-group-inner {
         .b-avatar {
-          box-shadow: 0 0 0 2px $theme-dark-card-bg, inset 0 0 0 1px rgba(40, 48, 70, 0.07);
+          box-shadow: 0 0 0 2px $theme-dark-card-bg,
+            inset 0 0 0 1px rgba(40, 48, 70, 0.07);
         }
       }
     }
@@ -225,17 +226,17 @@ body {
         thead,
         tfoot {
           > tr {
-            > [aria-sort='none'] {
+            > [aria-sort="none"] {
               .dark-layout & {
                 background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14px' height='26px' viewBox='0 0 14 26' version='1.1'%3E%3Ctitle%3Earrow-dark%3C/title%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='Artboard' transform='translate(-259.000000, -621.000000)' stroke='%23747A88' stroke-width='2'%3E%3Cg id='arrow-dark' transform='translate(260.000000, 622.000000)'%3E%3Cg id='chevron-down' transform='translate(0.000000, 18.000000)'%3E%3Cpolyline id='Path' points='0 0 6 6 12 0'/%3E%3C/g%3E%3Cg id='chevron-up'%3E%3Cpolyline id='Path' points='12 6 6 0 0 6'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
               }
             }
 
-            > [aria-sort='ascending'] {
+            > [aria-sort="ascending"] {
               background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14px' height='26px' viewBox='0 0 14 26' version='1.1'%3E%3Ctitle%3Eactive-up-dark%3C/title%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='Artboard' transform='translate(-199.000000, -621.000000)' stroke-width='2'%3E%3Cg id='active-up-dark' transform='translate(200.000000, 622.000000)'%3E%3Cg id='chevron-down' transform='translate(0.000000, 18.000000)' stroke='%23747A88'%3E%3Cpolyline id='Path' points='0 0 6 6 12 0'/%3E%3C/g%3E%3Cg id='chevron-up' stroke='%23B4B7BC'%3E%3Cpolyline id='Path' points='12 6 6 0 0 6'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             }
 
-            > [aria-sort='descending'] {
+            > [aria-sort="descending"] {
               background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='14px' height='26px' viewBox='0 0 14 26' version='1.1'%3E%3Ctitle%3Eactive-dow-dark%3C/title%3E%3Cg id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='Artboard' transform='translate(-229.000000, -621.000000)' stroke-width='2'%3E%3Cg id='active-dow-dark' transform='translate(230.000000, 622.000000)'%3E%3Cg id='chevron-down' transform='translate(0.000000, 18.000000)' stroke='%23B4B7BC'%3E%3Cpolyline id='Path' points='0 0 6 6 12 0'/%3E%3C/g%3E%3Cg id='chevron-up' stroke='%23747A88'%3E%3Cpolyline id='Path' points='12 6 6 0 0 6'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             }
           }
@@ -244,7 +245,7 @@ body {
 
       @each $color_name, $color in $colors {
         @each $color_type, $color_value in $color {
-          @if $color_type== 'base' {
+          @if $color_type== "base" {
             // table only for dark
             .b-table {
               .table-#{$color_name} {
@@ -274,8 +275,8 @@ body {
         }
       }
     }
-    .b-time[aria-disabled='true'] output,
-    .b-time[aria-readonly='true'] output,
+    .b-time[aria-disabled="true"] output,
+    .b-time[aria-readonly="true"] output,
     .b-time output.disabled {
       background-color: $theme-dark-card-bg;
     }
@@ -364,7 +365,9 @@ body {
     // ------------------------------------------------
     // Checkbox
     // ------------------------------------------------
-    .was-validated .custom-control-input:invalid ~ .custom-control-label::before,
+    .was-validated
+      .custom-control-input:invalid
+      ~ .custom-control-label::before,
     .custom-control-input.is-invalid ~ .custom-control-label::before {
       border-color: $danger !important;
     }

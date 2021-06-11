@@ -1,8 +1,8 @@
-@import '~flatpickr/dist/flatpickr.css';
-@import '~@core/scss/base/plugins/forms/pickers/form-flat-pickr.scss';
+@import "~flatpickr/dist/flatpickr.css";
+@import "~@core/scss/base/plugins/forms/pickers/form-flat-pickr.scss";
 
 // RTL
-html[dir='rtl'] {
+html[dir="rtl"] {
   .flatpickr-calendar {
     .flatpickr-prev-month,
     .flatpickr-next-month {

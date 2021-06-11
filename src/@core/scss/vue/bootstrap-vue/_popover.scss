@@ -1,5 +1,5 @@
 // Color palettes
-@import '~@core/scss/base/core/colors/palette-variables.scss';
+@import "~@core/scss/base/core/colors/palette-variables.scss";
 
 .popover.b-popover {
   //popover top position
@@ -40,7 +40,7 @@
 //--------- popover variant ---------//
 @each $color_name, $color in $colors {
   @each $color_type, $color_value in $color {
-    @if $color_type== 'base' {
+    @if $color_type== "base" {
       .popover.b-popover {
         &.b-popover-#{$color_name} {
           background-color: $white;

@@ -1,6 +1,6 @@
 // Reason: We aren't getting style due to structural changes
 // Color palettes
-@import '~@core/scss/base/core/colors/palette-variables.scss';
+@import "~@core/scss/base/core/colors/palette-variables.scss";
 
 .b-avatar {
   font-size: 0.857rem;
@@ -38,7 +38,8 @@
     .b-avatar {
       transition: all 0.25s ease 0s;
       border-width: 0;
-      box-shadow: 0 0 0 2px $avatar-group-border, inset 0 0 0 1px rgba($black, 0.07);
+      box-shadow: 0 0 0 2px $avatar-group-border,
+        inset 0 0 0 1px rgba($black, 0.07);
       cursor: pointer;
       &.pull-up:hover {
         transition: all 0.25s ease 0s;
@@ -50,12 +51,12 @@
 }
 
 // Color palettes
-@import '~@core/scss/base/core/colors/palette-variables.scss';
+@import "~@core/scss/base/core/colors/palette-variables.scss";
 
 // Badge Variants
 @each $color_name, $color in $colors {
   @each $color_type, $color_value in $color {
-    @if $color_type== 'base' {
+    @if $color_type== "base" {
       .b-avatar {
         &.badge-light-#{$color_name} {
           background-color: rgba($color_value, 0.12);

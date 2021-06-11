@@ -21,7 +21,7 @@
 
 // button group border
 .btn-group {
-  [class*='btn-']:not([class*='btn-outline-']):not([class*='btn-flat-']):not([class*='btn-gradient-']):not([class*='btn-relief-']) {
+  [class*="btn-"]:not([class*="btn-outline-"]):not([class*="btn-flat-"]):not([class*="btn-gradient-"]):not([class*="btn-relief-"]) {
     border-left-color: rgba($black, 0.08) !important;
     border-right-color: rgba($black, 0.08) !important;
   }
@@ -29,28 +29,28 @@
 
 // remove first btn group border left
 .btn-group
-  > .btn:not([class*='btn-outline-']):not([class*='btn-flat-']):not([class*='btn-gradient-']):not([class*='btn-relief-']):first-child,
+  > .btn:not([class*="btn-outline-"]):not([class*="btn-flat-"]):not([class*="btn-gradient-"]):not([class*="btn-relief-"]):first-child,
 .btn-group
-  > .btn:not([class*='btn-outline-']):not([class*='btn-flat-']):not([class*='btn-gradient-']):not([class*='btn-relief-']):first-of-type {
+  > .btn:not([class*="btn-outline-"]):not([class*="btn-flat-"]):not([class*="btn-gradient-"]):not([class*="btn-relief-"]):first-of-type {
   border-left-color: transparent !important;
 }
 
 // remove last btn group border right
 .btn-group
-  > .btn:not([class*='btn-outline-']):not([class*='btn-flat-']):not([class*='btn-gradient-']):not([class*='btn-relief-']):last-child,
+  > .btn:not([class*="btn-outline-"]):not([class*="btn-flat-"]):not([class*="btn-gradient-"]):not([class*="btn-relief-"]):last-child,
 .btn-group
-  > .btn:not([class*='btn-outline-']):not([class*='btn-flat-']):not([class*='btn-gradient-']):not([class*='btn-relief-']):last-of-type {
+  > .btn:not([class*="btn-outline-"]):not([class*="btn-flat-"]):not([class*="btn-gradient-"]):not([class*="btn-relief-"]):last-of-type {
   border-right-color: transparent !important;
 }
 
 //  toggle button
 .btn-group-toggle {
-  [class*='btn-outline-'] {
+  [class*="btn-outline-"] {
     &:not(:last-child) {
       border-right-width: 0 !important;
     }
   }
-  :not([class*='btn-outline-']) {
+  :not([class*="btn-outline-"]) {
     &.active,
     &:active {
       box-shadow: inset $box-shadow;

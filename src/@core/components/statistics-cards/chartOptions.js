@@ -1,4 +1,4 @@
-import { $themeColors } from '@themeConfig'
+import { $themeColors } from "@themeConfig";
 
 export const areaChartOptions = {
   grid: {
@@ -20,11 +20,11 @@ export const areaChartOptions = {
     enabled: false,
   },
   stroke: {
-    curve: 'smooth',
+    curve: "smooth",
     width: 2.5,
   },
   fill: {
-    type: 'gradient',
+    type: "gradient",
     gradient: {
       shadeIntensity: 0.9,
       opacityFrom: 0.5,
@@ -33,7 +33,7 @@ export const areaChartOptions = {
     },
   },
   xaxis: {
-    type: 'numeric',
+    type: "numeric",
     lines: {
       show: false,
     },
@@ -60,11 +60,11 @@ export const areaChartOptions = {
     monochrome: {
       enabled: true,
       color: $themeColors.primary,
-      shadeTo: 'light',
+      shadeTo: "light",
       shadeIntensity: 0.65,
     },
   },
-}
+};
 
 export const lineChartOptions = {
   grid: {
@@ -75,7 +75,7 @@ export const lineChartOptions = {
     },
   },
   chart: {
-    type: 'line',
+    type: "line",
     dropShadow: {
       enabled: true,
       top: 5,
@@ -92,19 +92,19 @@ export const lineChartOptions = {
   },
   stroke: {
     width: 5,
-    curve: 'smooth',
+    curve: "smooth",
   },
   xaxis: {
-    type: 'numeric',
+    type: "numeric",
   },
   colors: [$themeColors.primary],
   fill: {
-    type: 'gradient',
+    type: "gradient",
     gradient: {
-      shade: 'dark',
-      gradientToColors: ['#A9A2F6'],
+      shade: "dark",
+      gradientToColors: ["#A9A2F6"],
       shadeIntensity: 1,
-      type: 'horizontal',
+      type: "horizontal",
       opacityFrom: 1,
       opacityTo: 1,
       stops: [0, 100, 100, 100],
@@ -119,4 +119,4 @@ export const lineChartOptions = {
   tooltip: {
     x: { show: false },
   },
-}
+};

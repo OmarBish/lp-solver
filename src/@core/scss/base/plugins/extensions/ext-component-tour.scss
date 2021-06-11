@@ -1,22 +1,22 @@
-@import '../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../components/include'; // Components includes
+@import "../../bootstrap-extended/include"; // Bootstrap includes
+@import "../../components/include"; // Components includes
 
 .shepherd-element {
   border-radius: $border-radius;
   width: 350px;
-  &[data-popper-placement='bottom'] {
+  &[data-popper-placement="bottom"] {
     margin-top: 1rem !important;
     .shepherd-arrow:before {
       background-color: $primary !important;
     }
   }
-  &[data-popper-placement='top'] {
+  &[data-popper-placement="top"] {
     margin-bottom: 1rem !important;
   }
-  &[data-popper-placement='left'] {
+  &[data-popper-placement="left"] {
     margin-right: 1rem !important;
   }
-  &[data-popper-placement='right'] {
+  &[data-popper-placement="right"] {
     margin-left: 1rem !important;
   }
 
@@ -66,7 +66,7 @@
 .dark-layout {
   .shepherd-element {
     background-color: $theme-dark-card-bg;
-    &:not([data-popper-placement='bottom']) {
+    &:not([data-popper-placement="bottom"]) {
       .shepherd-arrow:before {
         background-color: $theme-dark-card-bg;
       }

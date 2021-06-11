@@ -1,5 +1,5 @@
-@import '../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../components/include'; // Components includes
+@import "../../bootstrap-extended/include"; // Bootstrap includes
+@import "../../components/include"; // Components includes
 
 // Number Inputs (Touch spin)
 $bootstrap-touchspin-width: 8.4rem;
@@ -120,7 +120,7 @@ $bootstrap-touchspin-btn-height-sm: 16px;
 /* Number Type Input Box Scss for Touchspin - Remove arrow for firefox */
 .bootstrap-touchspin {
   &.input-group {
-    input[type='number'] {
+    input[type="number"] {
       -moz-appearance: textfield;
     }
   }

@@ -1,8 +1,5 @@
 <template>
-  <ul
-    id="main-menu-navigation"
-    class="nav navbar-nav"
-  >
+  <ul id="main-menu-navigation" class="nav navbar-nav">
     <component
       :is="resolveNavComponent(item)"
       v-for="item in items"
@@ -13,8 +10,8 @@
 </template>
 
 <script>
-import HorizontalNavMenuHeaderLink from '../horizontal-nav-menu-header-link/HorizontalNavMenuHeaderLink.vue'
-import HorizontalNavMenuHeaderGroup from '../horizontal-nav-menu-header-group/HorizontalNavMenuHeaderGroup.vue'
+import HorizontalNavMenuHeaderLink from "../horizontal-nav-menu-header-link/HorizontalNavMenuHeaderLink.vue";
+import HorizontalNavMenuHeaderGroup from "../horizontal-nav-menu-header-group/HorizontalNavMenuHeaderGroup.vue";
 
 export default {
   components: {
@@ -28,14 +25,14 @@ export default {
     },
   },
   setup() {
-    const resolveNavComponent = item => {
-      if (item.children) return 'horizontal-nav-menu-header-group'
-      return 'horizontal-nav-menu-header-link'
-    }
+    const resolveNavComponent = (item) => {
+      if (item.children) return "horizontal-nav-menu-header-group";
+      return "horizontal-nav-menu-header-link";
+    };
 
     return {
       resolveNavComponent,
-    }
+    };
   },
-}
+};
 </script>

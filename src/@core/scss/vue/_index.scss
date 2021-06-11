@@ -1,15 +1,15 @@
-@import 'animation';
+@import "animation";
 
 // Base Extended (General styles which are not added 'base styles')
-@import 'base-extended';
+@import "base-extended";
 
-@import 'dark-layout';
+@import "dark-layout";
 
-@import 'misc';
+@import "misc";
 
-@import 'rtl';
+@import "rtl";
 
-@import 'transitions';
+@import "transitions";
 
 // Bootstrap Vue (Style which are not covered in Base style or extra BSV styles)
-@import 'bootstrap-vue/index';
+@import "bootstrap-vue/index";

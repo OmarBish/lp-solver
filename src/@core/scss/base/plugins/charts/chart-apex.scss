@@ -1,8 +1,8 @@
-@import '../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../components/include'; // Components includes
+@import "../../bootstrap-extended/include"; // Bootstrap includes
+@import "../../components/include"; // Components includes
 
 .apexcharts-canvas {
-  line[stroke='transparent'] {
+  line[stroke="transparent"] {
     display: none;
   }
   .apexcharts-tooltip {

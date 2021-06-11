@@ -12,7 +12,7 @@
   z-index: 1;
 }
 
-html[data-textdirection='rtl'] {
+html[data-textdirection="rtl"] {
   .leaflet-map {
     .leaflet-control-container {
       .leaflet-left {

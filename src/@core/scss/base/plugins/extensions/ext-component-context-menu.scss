@@ -1,5 +1,5 @@
-@import '../../bootstrap-extended/include'; // Bootstrap includes
-@import '../../components/include'; // Components includes
+@import "../../bootstrap-extended/include"; // Bootstrap includes
+@import "../../components/include"; // Components includes
 
 /********* CONTEXT MENU *********/
 
@@ -63,7 +63,7 @@
 }
 
 // RTL
-[data-textdirection='rtl'] {
+[data-textdirection="rtl"] {
   .context-menu-list {
     z-index: 1031 !important;
 
@@ -93,7 +93,8 @@
     .context-menu-list {
       .context-menu-item {
         &.context-menu-submenu:after {
-          border-color: transparent $theme-dark-body-color transparent transparent;
+          border-color: transparent $theme-dark-body-color transparent
+            transparent;
         }
       }
     }

@@ -1,20 +1,15 @@
 <template>
-  <e-charts
-    ref="line"
-    :options="option"
-    theme="theme-color"
-    auto-resize
-  />
+  <e-charts ref="line" :options="option" theme="theme-color" auto-resize />
 </template>
 
 <script>
-import ECharts from 'vue-echarts'
-import 'echarts/lib/component/tooltip'
-import 'echarts/lib/component/legend'
-import 'echarts/lib/chart/scatter'
-import theme from './theme.json'
+import ECharts from "vue-echarts";
+import "echarts/lib/component/tooltip";
+import "echarts/lib/component/legend";
+import "echarts/lib/chart/scatter";
+import theme from "./theme.json";
 
-ECharts.registerTheme('theme-color', theme)
+ECharts.registerTheme("theme-color", theme);
 
 export default {
   components: {
@@ -30,21 +25,21 @@ export default {
     return {
       option: {
         grid: {
-          width: '95%',
-          left: '30px',
-          right: '40px',
+          width: "95%",
+          left: "30px",
+          right: "40px",
           containLabel: false,
         },
         legend: {
           enable: true,
-          left: '0',
+          left: "0",
         },
         tooltip: {
-          trigger: 'axis',
+          trigger: "axis",
           axisPointer: {
-            type: 'cross',
+            type: "cross",
             label: {
-              backgroundColor: '#6a7985',
+              backgroundColor: "#6a7985",
             },
           },
         },
@@ -60,7 +55,7 @@ export default {
         },
         series: this.optionData.series,
       },
-    }
+    };
   },
-}
+};
 </script>

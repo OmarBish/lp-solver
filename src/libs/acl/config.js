@@ -1,8 +1,8 @@
 export const initialAbility = [
   {
-    action: 'read',
-    subject: 'Auth',
+    action: "read",
+    subject: "Auth",
   },
-]
+];
 
-export const _ = undefined
+export const _ = undefined;
