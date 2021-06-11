@@ -28,7 +28,7 @@
           </b-col>
 
           <!-- Price -->
-          <b-col md="2">
+          <b-col md="2" v-if="!replacementMode">
             <b-form-group label="Price" label-for="price">
               <b-form-input
                 id="price"
@@ -39,8 +39,22 @@
               />
             </b-form-group>
           </b-col>
+
+          <!-- Profit -->
+          <b-col md="2" v-if="replacementMode">
+            <b-form-group label="Profit" label-for="profit">
+              <b-form-input
+                id="profit"
+                type="number"
+                placeholder="32"
+                :value="item.profit"
+                @input="setProfit($event, item, index)"
+              />
+            </b-form-group>
+          </b-col>
+
           <!-- Cost -->
-          <b-col md="2">
+          <b-col md="2" v-if="!replacementMode">
             <b-form-group label="Cost" label-for="cost">
               <b-form-input
                 id="cost"
@@ -53,7 +67,7 @@
           </b-col>
 
           <!-- Wage -->
-          <b-col md="2">
+          <b-col md="2" v-if="!replacementMode">
             <b-form-group label="Wage" label-for="wage">
               <b-form-input
                 id="wage"
@@ -65,15 +79,15 @@
             </b-form-group>
           </b-col>
 
-          <!-- Rent -->
+          <!-- Size in CM -->
           <b-col md="2" v-if="replacementMode">
-            <b-form-group label="Rent" label-for="rent">
+            <b-form-group label="Size in cupic CM" label-for="size">
               <b-form-input
-                id="rent"
+                id="size"
                 type="number"
                 placeholder="32"
-                :value="item.rent"
-                @input="setRent($event, item, index)"
+                :value="item.size"
+                @input="setSize($event, item, index)"
               />
             </b-form-group>
           </b-col>
@@ -214,6 +228,14 @@ export default {
         product: tempItem,
       });
     },
+    setProfit(value, item, index) {
+      const tempItem = item;
+      tempItem.profit = value;
+      this.$store.commit("lp/SET_ITEM", {
+        index,
+        product: tempItem,
+      });
+    },
     setCost(value, item, index) {
       const tempItem = item;
       tempItem.cost = value;
@@ -230,9 +252,9 @@ export default {
         product: tempItem,
       });
     },
-    setRent(value, item, index) {
+    setSize(value, item, index) {
       const tempItem = item;
-      tempItem.rent = value;
+      tempItem.size = value;
       this.$store.commit("lp/SET_ITEM", {
         index,
         product: tempItem,
