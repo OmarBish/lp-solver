@@ -31,6 +31,7 @@
     "javascript-lp-solver": "^0.4.24",
     "jsonwebtoken": "8.5.1",
     "leaflet": "1.6.0",
+    "munkres-js": "^1.2.2",
     "portal-vue": "2.1.7",
     "postcss-rtl": "1.7.3",
     "prismjs": "1.19.0",

@@ -52,7 +52,7 @@ e<template>
                   </div>
                 </b-col>
                 <b-col md="12">
-                  <form-repeater-products />
+                  <form-repeater-products ref="form" />
                 </b-col>
               </b-row>
             </validation-observer>
@@ -72,16 +72,16 @@ e<template>
                   >
                 </b-col>
                 <b-col md="12">
-                  <factory-form />
+                  <factory-form ref="form" />
                 </b-col>
               </b-row>
             </validation-observer>
           </tab-content>
 
           <!-- address  -->
-          <tab-content title="Optmization">
+          <tab-content title="Optmization" ref="form">
             <validation-observer ref="addressRules" tag="form">
-              <b-row>
+              <b-row v-if="!replacementMode">
                 <b-col cols="12" class="mb-2">
                   <h5 class="mb-0">
                     Optmization
@@ -116,6 +116,23 @@ e<template>
                 </b-col>
                 <b-col md="3" v-if="results"></b-col>
               </b-row>
+              <b-row v-if="replacementMode">
+                <b-col cols="12" class="mb-2">
+                  <h5 class="mb-0">
+                    Optmization
+                  </h5>
+                  <small class="text-muted"
+                    >Select the optmization target that you want to get the
+                    result for.</small
+                  >
+                </b-col>
+                <b-col md="12"> <optamize-form /> </b-col>
+                <b-col md="3" v-if="replacmentResult"></b-col>
+                <b-col md="6" v-if="replacmentResult">
+                  <b-table responsive="sm" :items="replacmentResult" />
+                </b-col>
+                <b-col md="3" v-if="replacmentResult"></b-col>
+              </b-row>
             </validation-observer>
           </tab-content>
         </form-wizard>
@@ -144,8 +161,10 @@ import {
   BFormCheckbox,
   BListGroup,
   BListGroupItem,
+  BTable,
 } from "bootstrap-vue";
 import solver from "javascript-lp-solver";
+import munkres from "munkres-js";
 
 import FormRepeaterProducts from "./Home/FormRepeaterProducts.vue";
 import FactoryForm from "./Home/FactoryForm.vue";
@@ -157,6 +176,7 @@ export default {
     BCard,
     BCardTitle,
     BLink,
+    BTable,
     // BCardText,
 
     FormWizard,
@@ -182,6 +202,7 @@ export default {
       results: "",
       resultsItems: [],
       BListGroup: "",
+      replacmentResult: [],
     };
   },
   computed: {
@@ -202,57 +223,21 @@ export default {
     max_capacity() {
       return Number(this.$store.state.lp.max_capacity);
     },
-    items() {
+    products() {
       return this.$store.getters["lp/prodcuts"];
+    },
+    storages() {
+      return this.$store.getters["lp/storages"];
     },
   },
   mounted() {
     // this.initTrHeight();
-    var model = {
-      optimize: "capacity",
-      opType: "max",
-      constraints: {
-        plane: { max: 44 },
-        person: { max: 512 },
-        cost: { max: 300000 },
-      },
-      variables: {
-        brit: {
-          capacity: 20000,
-          plane: 1,
-          person: 8,
-          cost: 5000,
-        },
-        yank: {
-          capacity: 30000,
-          plane: 1,
-          person: 16,
-          cost: 9000,
-        },
-      },
-    };
-    model = {
-      optimize: "profit",
-      opType: "max",
-      constraints: {
-        ptw: { max: 2000 },
-        ptm: { max: 2000 },
-      },
-      variables: {
-        r1: { price: 50, cost: 10, wage: 70, ptw: 16, ptm: 10 },
-        r2: { price: 50, cost: 20, wage: 5, ptw: 8, ptm: 6 },
-      },
-      ints: { r1: 1, r2: 1 },
-    };
-
-    let results = solver.Solve(model);
-    console.log(results);
   },
   methods: {
     buildResultProductText() {
       this.resultsItems = [];
-      for (let index = 0; index < this.items.length; index += 1) {
-        const product = this.items[index];
+      for (let index = 0; index < this.products.length; index += 1) {
+        const product = this.products[index];
         if (product.name in this.results) {
           this.resultsItems.push({
             name: product.name,
@@ -261,7 +246,7 @@ export default {
         }
       }
     },
-    formSubmitted() {
+    solveLP() {
       const optimize = this.replacementMode ? "cost" : "profit";
 
       const opType = this.$store.state.lp.optamize.value;
@@ -280,8 +265,8 @@ export default {
       const variables = {};
       const ints = {};
 
-      for (let index = 0; index < this.items.length; index += 1) {
-        const product = this.items[index];
+      for (let index = 0; index < this.products.length; index += 1) {
+        const product = this.products[index];
         const profit =
           Number(product.price) - (Number(product.cost) + Number(product.wage));
         let cost = Number(product.rent) / Number(product.quantity);
@@ -316,6 +301,40 @@ export default {
       this.results = results;
       console.log(results);
       this.buildResultProductText();
+    },
+    solveReplacement() {
+      const toSolve = [];
+      const productMap = {};
+      for (let i = 0; i < this.products.length; i++) {
+        const product = this.products[i];
+        productMap[product.name] = product.quantity;
+        const productCostInStorage = [];
+        for (let j = 0; j < this.storages.length; j++) {
+          const storage = this.storages[j];
+          const cost = Number(product.size) * Number(storage.rent);
+          productCostInStorage.push(cost);
+        }
+        toSolve.push(productCostInStorage);
+      }
+      console.log(toSolve);
+      let result = munkres(toSolve);
+      for (let index = 0; index < result.length; index++) {
+        const item = result[index];
+        this.replacmentResult.push({
+          "Product name": this.products[item[0]].name,
+          "Storage Name": this.storages[item[1]].name,
+          Cost: toSolve[item[0]][item[1]],
+        });
+      }
+
+      console.log(result);
+    },
+    formSubmitted() {
+      if (!this.replacementMode) {
+        this.solveLP();
+      } else {
+        this.solveReplacement();
+      }
     },
     validationForm() {
       return new Promise((resolve, reject) => {

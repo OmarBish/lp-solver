@@ -64,7 +64,7 @@
             </b-col>
 
             <!-- Capacity -->
-            <b-col md="2">
+            <!-- <b-col md="2">
               <b-form-group label="Max Capacity" label-for="capacity">
                 <b-form-input
                   id="capacity"
@@ -74,7 +74,7 @@
                   @input="setCapacity($event, item, index)"
                 />
               </b-form-group>
-            </b-col>
+            </b-col> -->
 
             <!-- Rent -->
             <b-col md="2">
@@ -173,6 +173,7 @@ export default {
   },
   mounted() {
     this.initTrHeight();
+    setInterval(() => this.initTrHeight(), 1000);
   },
   created() {
     window.addEventListener("resize", this.initTrHeight);

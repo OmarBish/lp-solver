@@ -204,6 +204,7 @@ export default {
   },
   mounted() {
     this.initTrHeight();
+    setInterval(() => this.initTrHeight(), 1000);
   },
   created() {
     window.addEventListener("resize", this.initTrHeight);

@@ -74,6 +74,16 @@ export default {
       result: "",
     };
   },
+  mounted() {
+    this.initTrHeight();
+    setInterval(() => this.initTrHeight(), 1000);
+  },
+  created() {
+    window.addEventListener("resize", this.initTrHeight);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.initTrHeight);
+  },
   computed: {
     optamizeOptions() {
       if (this.replacementMode) {
