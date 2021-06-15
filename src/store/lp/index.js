@@ -4,6 +4,8 @@ export default {
     replacementMode: false,
     max_ptw: null,
     max_ptm: null,
+    max_cost: null,
+    min_cost: null,
     max_capacity: null,
     products: [
       {
@@ -51,6 +53,12 @@ export default {
     },
     SET_MAX_CAPACITY(state, payload) {
       state.max_capacity = payload;
+    },
+    SET_MAX_COST(state, payload) {
+      state.max_cost = payload;
+    },
+    SET_MIN_COST(state, payload) {
+      state.min_cost = payload;
     },
   },
   actions: {},

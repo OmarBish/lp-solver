@@ -89,14 +89,13 @@ export default {
       if (this.replacementMode) {
         return [
           { value: "select_value", text: "Select Value" },
-          { value: "max", text: "Max Cost" },
           { value: "min", text: "Min Cost" },
         ];
       } else {
         return [
           { value: "select_value", text: "Select Value" },
           { value: "max", text: "Max profit" },
-          { value: "min", text: "Min profit" },
+          { value: "min", text: "Min cost" },
         ];
       }
     },
@@ -141,9 +140,9 @@ export default {
     },
     initTrHeight() {
       this.trSetHeight(null);
-      this.$nextTick(() => {
-        this.trSetHeight(this.$refs.form.scrollHeight);
-      });
+      // this.$nextTick(() => {
+      //   this.trSetHeight(this.$refs.form.scrollHeight);
+      // });
     },
   },
 };

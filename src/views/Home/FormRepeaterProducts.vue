@@ -41,7 +41,7 @@
           </b-col>
 
           <!-- Profit -->
-          <b-col md="2" v-if="replacementMode">
+          <!-- <b-col md="2" v-if="replacementMode">
             <b-form-group label="Profit" label-for="profit">
               <b-form-input
                 id="profit"
@@ -51,7 +51,7 @@
                 @input="setProfit($event, item, index)"
               />
             </b-form-group>
-          </b-col>
+          </b-col> -->
 
           <!-- Cost -->
           <b-col md="2" v-if="!replacementMode">
@@ -300,9 +300,9 @@ export default {
     },
     initTrHeight() {
       this.trSetHeight(null);
-      this.$nextTick(() => {
-        this.trSetHeight(this.$refs.form.scrollHeight);
-      });
+      // this.$nextTick(() => {
+      //   this.trSetHeight(this.$refs.form.scrollHeight);
+      // });
     },
   },
 };

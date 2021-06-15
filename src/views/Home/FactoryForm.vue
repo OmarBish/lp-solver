@@ -38,6 +38,28 @@
               />
             </b-form-group>
           </b-col>
+          <b-col md="4">
+            <b-form-group :label="`Max budget`" label-for="item-max-ptw">
+              <b-form-input
+                id="item-max-ptw"
+                type="number"
+                placeholder="32"
+                :value="max_cost"
+                @input="setMaxCost($event)"
+              />
+            </b-form-group>
+          </b-col>
+          <!-- <b-col md="2">
+            <b-form-group :label="`min budget`" label-for="item-max-ptw">
+              <b-form-input
+                id="item-max-ptw"
+                type="number"
+                placeholder="32"
+                :value="min_cost"
+                @input="setMinCost($event)"
+              />
+            </b-form-group>
+          </b-col> -->
           <b-col cols="12">
             <hr class="mb-3" />
           </b-col>
@@ -158,6 +180,12 @@ export default {
     max_ptm() {
       return this.$store.state.lp.max_ptm;
     },
+    max_cost() {
+      return this.$store.state.lp.max_cost;
+    },
+    min_cost() {
+      return this.$store.state.lp.min_cost;
+    },
     max_ptw() {
       return this.$store.state.lp.max_ptw;
     },
@@ -209,6 +237,12 @@ export default {
     setMaxPtm(value) {
       this.$store.commit("lp/SET_MAX_PTM", value);
     },
+    setMaxCost(value) {
+      this.$store.commit("lp/SET_MAX_COST", value);
+    },
+    setMinCost(value) {
+      this.$store.commit("lp/SET_MIN_COST", value);
+    },
     setMaxPtw(value) {
       this.$store.commit("lp/SET_MAX_PTW", value);
     },
@@ -230,9 +264,9 @@ export default {
     },
     initTrHeight() {
       this.trSetHeight(null);
-      this.$nextTick(() => {
-        this.trSetHeight(this.$refs.form.scrollHeight);
-      });
+      // this.$nextTick(() => {
+      //   this.trSetHeight(this.$refs.form.scrollHeight);
+      // });
     },
   },
 };

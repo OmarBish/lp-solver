@@ -11,7 +11,8 @@ e<template>
         </b-link>
 
         <b-card-title class="mb-1 text-center">
-          Solving LP problems is as easy as going throw the form in this page 💪
+          Solving LP problems is as easy as going through the form in this page
+          💪
         </b-card-title>
         <!-- <b-card-text class="mb-2 text-center">
         </b-card-text> -->
@@ -97,7 +98,9 @@ e<template>
                   <h3 class="text-center">
                     {{
                       ` the ${$store.state.lp.optamize.value} ${
-                        this.replacementMode ? "cost" : "profit"
+                        $store.state.lp.optamize.value == "min"
+                          ? "cost"
+                          : "profit"
                       } is ${results.result} `
                     }}
                   </h3>
@@ -220,6 +223,12 @@ export default {
     max_ptw() {
       return Number(this.$store.state.lp.max_ptw);
     },
+    max_cost() {
+      return Number(this.$store.state.lp.max_cost);
+    },
+    min_cost() {
+      return Number(this.$store.state.lp.min_cost);
+    },
     max_capacity() {
       return Number(this.$store.state.lp.max_capacity);
     },
@@ -247,7 +256,13 @@ export default {
       }
     },
     solveLP() {
-      const optimize = this.replacementMode ? "cost" : "profit";
+      let optimize = "cost";
+      if (
+        !this.replacementMode &&
+        this.$store.state.lp.optamize.value == "max"
+      ) {
+        optimize = "profit";
+      }
 
       const opType = this.$store.state.lp.optamize.value;
       let constraints = {};
@@ -259,8 +274,13 @@ export default {
         constraints = {
           ptw: { max: Number(this.max_ptw) },
           ptm: { max: Number(this.max_ptm) },
-          cost: { max: Number(10000) },
         };
+        if (optimize == "profit") {
+          constraints["cost"] = {
+            max: Number(this.max_cost),
+            // min: Number(this.min_cost),
+          };
+        }
       }
       const variables = {};
       const ints = {};
@@ -303,6 +323,7 @@ export default {
       this.buildResultProductText();
     },
     solveReplacement() {
+      this.replacmentResult = [];
       const toSolve = [];
       const productMap = {};
       for (let i = 0; i < this.products.length; i++) {
@@ -362,7 +383,7 @@ export default {
 }
 
 .ob-logo {
-  max-width: 80px;
+  max-width: 160px;
 }
 
 .ob-logo-warper {
